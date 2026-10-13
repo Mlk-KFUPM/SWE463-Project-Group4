@@ -1,17 +1,24 @@
-# sufrah
+# Sufrah (سفرة)
 
-A new Flutter project.
+A bilingual community recipe application for Arabic-speaking home cooks, built with Flutter for SWE 463 (Group 4).
 
-## Getting Started
+This is the Phase 2 starter project: the folder structure and placeholder navigation between the main screens.
 
-This project is a starting point for a Flutter application.
+## Run
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+flutter pub get
+flutter run
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Packages
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| Package | Version | Purpose | Licence |
+|---------|---------|---------|---------|
+| `go_router` | ^18.0.2 | Routing and the bottom navigation shell | BSD-3-Clause |
+| `cupertino_icons` | ^1.0.8 | iOS-style icon font (Flutter template default) | MIT |
+| `flutter_lints` (dev) | ^6.0.0 | Static analysis rules | BSD-3-Clause |
+
+## AI-use disclosure
+
+The starter project in this repository (routing, placeholder screens and this README) was generated with Claude Code (Anthropic).
