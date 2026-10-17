@@ -1,18 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// A Sufrah account, stored in the `users` collection.
-/// The document id is the Firebase Auth uid. Saves and likes are not
-/// stored here; they live in the user's `saves` and `likes` subcollections.
+/// The document id is the Firebase Auth uid. The email is not stored here
+/// because other users read this document; S6 gets it from Firebase Auth.
+/// Saves and likes live in the user's `saves` and `likes` subcollections.
 class AppUser {
   final String id;
   final String name;
-  final String email;
   final DateTime createdAt;
 
   const AppUser({
     required this.id,
     required this.name,
-    required this.email,
     required this.createdAt,
   });
 
@@ -23,7 +22,6 @@ class AppUser {
     return AppUser(
       id: id,
       name: map['name'] as String? ?? '',
-      email: map['email'] as String? ?? '',
       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
@@ -31,7 +29,6 @@ class AppUser {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'email': email,
       'createdAt': Timestamp.fromDate(createdAt),
     };
   }
@@ -40,7 +37,6 @@ class AppUser {
     return AppUser(
       id: id,
       name: name ?? this.name,
-      email: email,
       createdAt: createdAt,
     );
   }
