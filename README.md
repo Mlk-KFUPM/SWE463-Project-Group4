@@ -58,6 +58,6 @@ As allowed by the course, we used Claude Code (Anthropic) as a helper. Each memb
 
 - Phase 2 starter project (routing, placeholder screens): generated with Claude Code.
 - Abdulmalik Alsafadi: used Claude Code to help write the foundation (services and providers), the S5 create recipe form and this README.
-- Faris Alshahrany: _to be added_
-- Abdullah Baleid: _to be added_
-- Abdullah Binsheheween: _to be added_
+- Faris Alshahrany: used Claude Code to help write the S2 Discover feed (loading, empty and error states), the S3 search with category chips and the RecipeCard widget.
+- Abdullah Baleid: used Claude Code to help write the S4 recipe details screen with the servings stepper, to merge and test the Phase 3 branches, and to share the category and difficulty labels across screens.
+- Abdullah Binsheheween: used Claude Code to help write the S1 sign in / sign up form, the S6 profile screen with sign out and the sign-in redirect in the router.
