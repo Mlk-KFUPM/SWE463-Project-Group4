@@ -20,6 +20,9 @@ class _SignInScreenState extends State<SignInScreen> {
   // false = "Sign in" mode, true = "Sign up" mode.
   bool _isSignUp = false;
 
+  // The eye icon in the password field switches this.
+  bool _hidePassword = true;
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -63,6 +66,21 @@ class _SignInScreenState extends State<SignInScreen> {
           key: _formKey,
           child: ListView(
             children: [
+              const SizedBox(height: 16),
+              const Center(
+                child: CircleAvatar(
+                  radius: 36,
+                  child: Icon(Icons.restaurant_menu, size: 36),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Center(
+                child: Text(
+                  'Sufrah',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+              const SizedBox(height: 16),
               if (_isSignUp)
                 TextFormField(
                   controller: _nameController,
@@ -90,8 +108,18 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _hidePassword ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    tooltip: _hidePassword ? 'Show password' : 'Hide password',
+                    onPressed: () =>
+                        setState(() => _hidePassword = !_hidePassword),
+                  ),
+                ),
+                obscureText: _hidePassword,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Password is required';
