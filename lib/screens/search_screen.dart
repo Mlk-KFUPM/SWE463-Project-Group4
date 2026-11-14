@@ -24,9 +24,12 @@ class _SearchScreenState extends State<SearchScreen> {
     // Spaces typed before or after the text are ignored.
     final query = _query.trim().toLowerCase();
 
-    // Keep recipes whose title contains the text AND match the chip (if any).
+    // Keep recipes whose title or one of its ingredients contains the text
+    // AND match the chip (if any).
     final results = provider.recipes.where((recipe) {
-      final matchesText = recipe.title.toLowerCase().contains(query);
+      final matchesText =
+          recipe.title.toLowerCase().contains(query) ||
+          recipe.ingredients.any((i) => i.name.toLowerCase().contains(query));
       final matchesCategory =
           _selectedCategory == null || recipe.category == _selectedCategory;
       return matchesText && matchesCategory;
@@ -41,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.search),
-                hintText: 'Search recipes',
+                hintText: 'Search by title or ingredient',
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
