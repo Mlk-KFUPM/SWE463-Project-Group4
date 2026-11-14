@@ -65,7 +65,11 @@ void main() {
     expect(find.text('Email is required'), findsOneWidget);
     expect(find.text('Password is required'), findsOneWidget);
 
+    // After a failed submit, errors update while the user types.
     await tester.enterText(field('Email'), 'not-an-email');
+    await tester.pump();
+    expect(find.text('Email is required'), findsNothing);
+    expect(find.text('Enter a valid email'), findsOneWidget);
     await tester.enterText(field('Password'), '123');
     await tester.tap(find.widgetWithText(FilledButton, 'Sign in'));
     await tester.pumpAndSettle();
@@ -253,11 +257,16 @@ void main() {
     expect(find.text('Choose a category'), findsOneWidget);
     expect(find.text('Choose a difficulty'), findsOneWidget);
 
+    // Each error goes away as soon as its field is fixed.
     await tester.enterText(field('Title'), 'Mint Tea');
+    await tester.pump();
+    expect(find.text('Title must be at least 3 characters'), findsNothing);
     await tester.tap(find.byType(DropdownButtonFormField<RecipeCategory>));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Drink').last);
     await tester.pumpAndSettle();
+    expect(find.text('Choose a category'), findsNothing);
+    expect(find.text('Choose a difficulty'), findsOneWidget);
     await tester.tap(find.byType(DropdownButtonFormField<Difficulty>));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Easy').last);
