@@ -7,6 +7,7 @@ import '../models/recipe.dart';
 import '../models/recipe_step.dart';
 import '../providers/auth_provider.dart';
 import '../providers/recipe_provider.dart';
+import '../widgets/recipe_card.dart';
 
 /// The three text fields of one ingredient row.
 class _IngredientFields {
@@ -161,7 +162,12 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
               initialValue: _category,
               decoration: const InputDecoration(labelText: 'Category'),
               items: RecipeCategory.values
-                  .map((c) => DropdownMenuItem(value: c, child: Text(c.name)))
+                  .map(
+                    (c) => DropdownMenuItem(
+                      value: c,
+                      child: Text(categoryLabel(c)),
+                    ),
+                  )
                   .toList(),
               onChanged: (value) => setState(() => _category = value),
               validator: (value) => value == null ? 'Choose a category' : null,
@@ -170,7 +176,12 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
               initialValue: _difficulty,
               decoration: const InputDecoration(labelText: 'Difficulty'),
               items: Difficulty.values
-                  .map((d) => DropdownMenuItem(value: d, child: Text(d.name)))
+                  .map(
+                    (d) => DropdownMenuItem(
+                      value: d,
+                      child: Text(difficultyLabel(d)),
+                    ),
+                  )
                   .toList(),
               onChanged: (value) => setState(() => _difficulty = value),
               validator: (value) =>
