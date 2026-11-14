@@ -21,12 +21,12 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<RecipeProvider>();
+    // Spaces typed before or after the text are ignored.
+    final query = _query.trim().toLowerCase();
 
     // Keep recipes whose title contains the text AND match the chip (if any).
     final results = provider.recipes.where((recipe) {
-      final matchesText = recipe.title.toLowerCase().contains(
-        _query.toLowerCase(),
-      );
+      final matchesText = recipe.title.toLowerCase().contains(query);
       final matchesCategory =
           _selectedCategory == null || recipe.category == _selectedCategory;
       return matchesText && matchesCategory;
