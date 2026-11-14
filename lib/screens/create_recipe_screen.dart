@@ -40,6 +40,10 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   List<TextEditingController> _steps = [TextEditingController()];
   bool _saving = false;
 
+  // Off at first. After a failed Publish, each field is checked again as
+  // soon as it changes, so an error goes away once the field is fixed.
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
+
   @override
   void dispose() {
     _title.dispose();
@@ -70,7 +74,10 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
   }
 
   Future<void> _publish() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) {
+      setState(() => _autovalidate = AutovalidateMode.onUserInteraction);
+      return;
+    }
     if (_ingredients.isEmpty || _steps.isEmpty) {
       _showMessage('Add at least one ingredient and one step.');
       return;
@@ -123,6 +130,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
     final oldSteps = _steps;
     setState(() {
       _formKey = GlobalKey<FormState>(); // a new key rebuilds empty fields
+      _autovalidate = AutovalidateMode.disabled;
       _title.clear();
       _prepTime.clear();
       _servings.clear();
@@ -145,6 +153,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
       appBar: AppBar(title: const Text('Create recipe')),
       body: Form(
         key: _formKey,
+        autovalidateMode: _autovalidate,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
@@ -214,7 +223,12 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                   Expanded(
                     child: TextFormField(
                       controller: ingredient.quantity,
-                      decoration: const InputDecoration(labelText: 'Qty'),
+                      // Two lines so the error is not cut off in this
+                      // narrow field.
+                      decoration: const InputDecoration(
+                        labelText: 'Qty',
+                        errorMaxLines: 2,
+                      ),
                       keyboardType: TextInputType.number,
                       validator: _positiveNumber,
                     ),

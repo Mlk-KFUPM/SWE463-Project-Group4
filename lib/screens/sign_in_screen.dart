@@ -23,6 +23,10 @@ class _SignInScreenState extends State<SignInScreen> {
   // The eye icon in the password field switches this.
   bool _hidePassword = true;
 
+  // Off at first. After a failed submit, each field is checked again as
+  // soon as it changes, so an error goes away once the field is fixed.
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -32,7 +36,10 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _submit() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) {
+      setState(() => _autovalidate = AutovalidateMode.onUserInteraction);
+      return;
+    }
 
     final auth = context.read<AuthProvider>();
     final email = _emailController.text.trim();
@@ -64,6 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
+          autovalidateMode: _autovalidate,
           child: ListView(
             children: [
               const SizedBox(height: 16),
