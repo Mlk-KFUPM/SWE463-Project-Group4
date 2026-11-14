@@ -31,9 +31,17 @@ class DiscoverFeedScreen extends StatelessWidget {
         // A ListView so pull-to-refresh still works when there is nothing to show.
         return ListView(
           physics: const AlwaysScrollableScrollPhysics(),
-          children: const [
-            SizedBox(height: 200),
-            Center(child: Text('No recipes yet')),
+          children: [
+            const SizedBox(height: 200),
+            const Center(child: Text('No recipes yet')),
+            const SizedBox(height: 16),
+            // As in the design, an empty feed points the user to S5.
+            Center(
+              child: FilledButton(
+                onPressed: () => context.go('/create'),
+                child: const Text('Create recipe'),
+              ),
+            ),
           ],
         );
 
