@@ -68,7 +68,7 @@ To see the feed's error state, set `simulateError = true` in `RecipeService` and
 As allowed by the course, we used Claude Code (Anthropic) as a helper. Each member reviewed, tested and can explain the code they submitted.
 
 - Phase 2 starter project (routing, placeholder screens): generated with Claude Code.
-- Abdulmalik Alsafadi: used Claude Code to help write the foundation (services and providers), the S5 create recipe form and this README.
-- Faris Alshahrany: used Claude Code to help write the S2 Discover feed (loading, empty and error states), the S3 search with category chips and the RecipeCard widget.
+- Abdulmalik Alsafadi: used Claude Code to help write the services, providers, create recipe form, and README.
+- Faris Alshahrany: used Claude Code to help build the Discover feed, search filters, and recipe cards.
 - Abdullah Baleid: used Claude Code to help write the S4 recipe details screen with the servings stepper, to merge and test the Phase 3 branches, to write the end-to-end tests, and for small fixes (shared category and difficulty labels, the search error state and extra spaces in search).
-- Abdullah Binsheheween: used Claude Code to help write the S1 sign in / sign up form, the S6 profile screen with sign out and the sign-in redirect in the router.
+- Abdullah Binsheheween: used Claude Code to help build the sign-in and sign-up form, profile screen, and sign-in redirects.
