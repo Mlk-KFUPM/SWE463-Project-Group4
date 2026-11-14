@@ -6,6 +6,8 @@ import '../models/recipe_step.dart';
 /// Phase 4 replaces the method bodies with Cloud Firestore calls;
 /// the method signatures stay the same so the providers do not change.
 class RecipeService {
+  bool simulateError = false; // set to true to demo the error state on S2
+
   final List<Recipe> _recipes = [
     Recipe(
       id: 'r1',
@@ -53,6 +55,9 @@ class RecipeService {
 
   Future<List<Recipe>> fetchRecipes() async {
     await Future.delayed(const Duration(seconds: 1));
+    if (simulateError) {
+      throw Exception('Could not load recipes. Check your connection.');
+    }
     return List.of(_recipes);
   }
 
