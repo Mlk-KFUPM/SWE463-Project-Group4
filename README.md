@@ -32,7 +32,7 @@ End-to-end flow: Create tab → fill in the recipe form → Publish → the new 
 
 ## How to test
 
-1. **Sign in (S1).** Tap Sign in with empty fields to see the errors under each field. Try `abc` / `123` to see the email and password rules. Try the test account with a wrong password to see "Wrong email or password." Use the eye icon to show or hide the password. Then sign in with `test@sufrah.app` / `test1234`.
+1. **Sign in (S1).** Tap Sign in with empty fields to see the errors under each field. Try `abc` / `123` to see the email and password rules; each error clears as soon as the field is fixed. Try the test account with a wrong password to see "Wrong email or password." Use the eye icon to show or hide the password. Then sign in with `test@sufrah.app` / `test1234`.
 2. **Discover feed (S2).** The feed shows a loading spinner, then two recipes. Pull down to refresh. Tap a card to open it.
 3. **Recipe details (S4).** Chicken Kabsa is written for 4 servings. Press + once: 1.5 kg chicken becomes 1.9 kg and 3 cups rice becomes 3.8 cups. The − button stops at 1. The back arrow returns to the previous screen.
 4. **Search (S3).** Type part of a title (`luq`) or an ingredient (`rice`). Pick a category chip to filter; tap it again to clear it. Type `zzz` to see "No results".
@@ -108,5 +108,5 @@ As allowed by the course, we used Claude Code (Anthropic) as a helper. Each memb
 - Phase 2 starter project (routing, placeholder screens): generated with Claude Code.
 - Abdulmalik Alsafadi: used Claude Code to help write the services, providers, create recipe form, and README.
 - Faris Alshahrany: used Claude Code to help build the Discover feed, search filters, and recipe cards.
-- Abdullah Baleid: used Claude Code to help write the S4 recipe details screen with the servings stepper, to merge and test the Phase 3 branches, to write the end-to-end tests, and for small fixes after the merge (shared category and difficulty labels, the search error state, extra spaces and ingredient names in search, the empty-feed button, the password eye icon and the sign out button).
+- Abdullah Baleid: used Claude Code to help write the S4 recipe details screen with the servings stepper, to merge and test the Phase 3 branches, to write the end-to-end tests, and for small fixes after the merge (shared category and difficulty labels, the search error state, extra spaces and ingredient names in search, the empty-feed button, the password eye icon, the sign out button, and form errors that now stay on the right field and clear once fixed).
 - Abdullah Binsheheween: used Claude Code to help build the sign-in and sign-up form, profile screen, and sign-in redirects.
