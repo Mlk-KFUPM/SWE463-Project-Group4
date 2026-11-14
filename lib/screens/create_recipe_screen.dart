@@ -219,6 +219,8 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
             for (final ingredient in _ingredients)
               Row(
                 key: ObjectKey(ingredient),
+                // Top-aligned so the fields stay level when an error shows.
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: TextFormField(
