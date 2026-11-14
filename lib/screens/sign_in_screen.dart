@@ -81,8 +81,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
               const SizedBox(height: 16),
+              // The keys keep each field's error message on the right field
+              // when the Name field appears or disappears.
               if (_isSignUp)
                 TextFormField(
+                  key: const ValueKey('name'),
                   controller: _nameController,
                   decoration: const InputDecoration(labelText: 'Name'),
                   validator: (value) {
@@ -93,6 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   },
                 ),
               TextFormField(
+                key: const ValueKey('email'),
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
@@ -107,6 +111,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
               ),
               TextFormField(
+                key: const ValueKey('password'),
                 controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
