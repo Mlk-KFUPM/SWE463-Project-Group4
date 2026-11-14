@@ -32,12 +32,13 @@ class ProfileScreen extends StatelessWidget {
             ),
             Text(auth.email ?? ''),
             const SizedBox(height: 24),
-            FilledButton(
+            OutlinedButton.icon(
               onPressed: () async {
                 await context.read<AuthProvider>().signOut();
                 if (context.mounted) context.go('/sign-in');
               },
-              child: const Text('Sign out'),
+              icon: const Icon(Icons.logout),
+              label: const Text('Sign out'),
             ),
           ],
         ),
