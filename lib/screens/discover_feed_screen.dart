@@ -10,7 +10,7 @@ class DiscoverFeedScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Discover')),
       body: Center(
         child: FilledButton(
-          onPressed: () => context.push('/recipe'),
+          onPressed: () => context.push('/recipe/r1'),
           child: const Text('Open recipe details'),
         ),
       ),

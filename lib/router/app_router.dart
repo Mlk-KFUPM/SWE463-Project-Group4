@@ -16,8 +16,9 @@ final appRouter = GoRouter(
       builder: (context, state) => const SignInScreen(),
     ),
     GoRoute(
-      path: '/recipe',
-      builder: (context, state) => const RecipeDetailsScreen(),
+      path: '/recipe/:id',
+      builder: (context, state) =>
+          RecipeDetailsScreen(recipeId: state.pathParameters['id']!),
     ),
     // The four tabs that share the bottom navigation bar.
     StatefulShellRoute.indexedStack(
