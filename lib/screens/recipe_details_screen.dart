@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/recipe.dart';
 import '../providers/recipe_provider.dart';
+import '../widgets/recipe_card.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
   const RecipeDetailsScreen({super.key, required this.recipeId});
@@ -17,30 +17,6 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   // Servings picked with the stepper. Null means the user has not changed it
   // yet, so we use the recipe's own servings.
   int? _selectedServings;
-
-  String _categoryLabel(RecipeCategory category) {
-    switch (category) {
-      case RecipeCategory.mainDish:
-        return 'Main dish';
-      case RecipeCategory.appetiser:
-        return 'Appetiser';
-      case RecipeCategory.dessert:
-        return 'Dessert';
-      case RecipeCategory.drink:
-        return 'Drink';
-    }
-  }
-
-  String _difficultyLabel(Difficulty difficulty) {
-    switch (difficulty) {
-      case Difficulty.easy:
-        return 'Easy';
-      case Difficulty.medium:
-        return 'Medium';
-      case Difficulty.hard:
-        return 'Hard';
-    }
-  }
 
   // Shows 3.0 as "3" and 1.875 as "1.9".
   String _formatQuantity(double quantity) {
@@ -86,9 +62,9 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
           Wrap(
             spacing: 8,
             children: [
-              Chip(label: Text(_categoryLabel(recipe.category))),
+              Chip(label: Text(categoryLabel(recipe.category))),
               Chip(label: Text('${recipe.prepTimeMinutes} min')),
-              Chip(label: Text(_difficultyLabel(recipe.difficulty))),
+              Chip(label: Text(difficultyLabel(recipe.difficulty))),
             ],
           ),
           const SizedBox(height: 16),
