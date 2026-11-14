@@ -89,6 +89,20 @@ void main() {
     await tester.pumpAndSettle();
     expect(passwordHidden(), isTrue);
 
+    // Switching to sign up while errors show keeps each error on its field.
+    await tester.tap(find.text('No account? Sign up'));
+    await tester.pumpAndSettle();
+    Finder errorUnder(String label, String error) =>
+        find.descendant(of: field(label), matching: find.text(error));
+    expect(errorUnder('Name', 'Enter a valid email'), findsNothing);
+    expect(errorUnder('Email', 'Enter a valid email'), findsOneWidget);
+    expect(
+      errorUnder('Password', 'Password must be at least 6 characters'),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Already have an account? Sign in'));
+    await tester.pumpAndSettle();
+
     await signIn(tester, 'test@sufrah.app', 'wrongpass');
     expect(find.text('Wrong email or password.'), findsOneWidget);
     expect(auth.isSignedIn, isFalse);
