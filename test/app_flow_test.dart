@@ -72,6 +72,23 @@ void main() {
     expect(find.text('Enter a valid email'), findsOneWidget);
     expect(find.text('Password must be at least 6 characters'), findsOneWidget);
 
+    // The eye icon shows and hides the password.
+    bool passwordHidden() => tester
+        .widget<TextField>(
+          find.descendant(
+            of: field('Password'),
+            matching: find.byType(TextField),
+          ),
+        )
+        .obscureText;
+    expect(passwordHidden(), isTrue);
+    await tester.tap(find.byTooltip('Show password'));
+    await tester.pumpAndSettle();
+    expect(passwordHidden(), isFalse);
+    await tester.tap(find.byTooltip('Hide password'));
+    await tester.pumpAndSettle();
+    expect(passwordHidden(), isTrue);
+
     await signIn(tester, 'test@sufrah.app', 'wrongpass');
     expect(find.text('Wrong email or password.'), findsOneWidget);
     expect(auth.isSignedIn, isFalse);
@@ -131,6 +148,21 @@ void main() {
     tester.element(find.byType(Scaffold).first).push('/recipe/missing');
     await tester.pumpAndSettle();
     expect(find.text('Recipe not found'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    // An empty feed offers a button that opens the Create tab.
+    final provider = tester
+        .element(find.byType(RecipeCard).first)
+        .read<RecipeProvider>();
+    provider.recipes = [];
+    provider.status = LoadStatus.empty;
+    provider.notifyListeners();
+    await tester.pump();
+    expect(find.text('No recipes yet'), findsOneWidget);
+    await tester.tap(find.widgetWithText(FilledButton, 'Create recipe'));
+    await tester.pumpAndSettle();
+    expect(find.widgetWithText(AppBar, 'Create recipe'), findsOneWidget);
   });
 
   testWidgets('F2 search: title, category chips, spaces and load error', (
@@ -148,6 +180,12 @@ void main() {
     expect(find.text('Luqaimat'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), '  kabsa  ');
+    await tester.pumpAndSettle();
+    expect(find.byType(RecipeCard), findsOneWidget);
+    expect(find.text('Chicken Kabsa'), findsOneWidget);
+
+    // Ingredient names are searched too: Basmati rice is in the Kabsa.
+    await tester.enterText(find.byType(TextField), 'rice');
     await tester.pumpAndSettle();
     expect(find.byType(RecipeCard), findsOneWidget);
     expect(find.text('Chicken Kabsa'), findsOneWidget);
