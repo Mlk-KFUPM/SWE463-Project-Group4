@@ -223,11 +223,11 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                   Expanded(
                     child: TextFormField(
                       controller: ingredient.quantity,
-                      // Two lines so the error is not cut off in this
-                      // narrow field.
+                      // Up to three lines so the error is not cut off in
+                      // this narrow field.
                       decoration: const InputDecoration(
                         labelText: 'Qty',
-                        errorMaxLines: 2,
+                        errorMaxLines: 3,
                       ),
                       keyboardType: TextInputType.number,
                       validator: _positiveNumber,
